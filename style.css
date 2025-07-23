@@ -1,0 +1,111 @@
+/* style.css (完整版) */
+:root {
+    --left-sidebar-width: 65px;
+    --right-sidebar-width: 250px;
+    --bg-color: #1e1e1e;
+    --sidebar-bg: #2c2c2c;
+    --hover-bg: #4a4a4a;
+    --active-color: #007aff;
+    --text-color: #ccc;
+    --border-color: #444;
+}
+
+body, html {
+    margin: 0; padding: 0; height: 100vh; width: 100vw;
+    overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+}
+
+.container { display: flex; height: 100%; }
+
+#sidebar {
+    width: var(--left-sidebar-width); background-color: var(--sidebar-bg);
+    display: flex; flex-direction: column; justify-content: space-between;
+    align-items: center; padding: 20px 0; flex-shrink: 0;
+}
+.icon-group { display: flex; flex-direction: column; align-items: center; }
+.icon {
+    width: 40px; height: 40px; margin-bottom: 20px; cursor: pointer;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    transition: background-color 0.2s ease;
+}
+.icon:hover { background-color: var(--hover-bg); }
+.icon.active { background-color: var(--active-color); }
+.icon img, .icon svg { width: 28px; height: 28px; }
+
+#content { flex-grow: 1; height: 100%; position: relative; } /* 添加 position: relative */
+
+#right-sidebar {
+    width: var(--right-sidebar-width); background-color: var(--sidebar-bg);
+    border-left: 1px solid var(--border-color);
+    display: flex; flex-direction: column;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+#right-sidebar.hidden { width: 0; border-left: none; }
+.sidebar-header {
+    padding: 15px; font-size: 14px; font-weight: bold; color: var(--text-color);
+    text-align: center; border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+#clipboard-list-container {
+    flex-grow: 1; overflow-y: auto; position: relative;
+}
+#clipboard-list-container.dragover { background-color: var(--hover-bg); }
+#clipboard-list { list-style: none; margin: 0; padding: 10px; }
+.clipboard-item {
+    padding: 10px; margin-bottom: 8px; background-color: #3a3a3a;
+    border-radius: 6px; color: var(--text-color); font-size: 13px;
+    cursor: pointer; -webkit-user-select: none; user-select: none; /* Changed to pointer */
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    position: relative;
+}
+.clipboard-item:hover { background-color: var(--hover-bg); }
+.clipboard-item.is-text { cursor: copy; } /* 特殊光标给文本项 */
+.clipboard-item:grabbing { cursor: grabbing; }
+.clipboard-item .delete-btn {
+    position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+    cursor: pointer; font-size: 16px; display: none;
+}
+.clipboard-item:hover .delete-btn { display: block; }
+
+#drop-prompt {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: #777; text-align: center; padding: 20px; pointer-events: none;
+    display: none;
+}
+#clipboard-list:empty + #drop-prompt { display: block; }
+
+/* --- 进度条样式 --- */
+#progress-bar-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    z-index: 100; opacity: 1; transition: opacity 0.3s ease;
+}
+#progress-bar-container.hidden { opacity: 0; pointer-events: none; }
+.progress-bar {
+    width: 100%; height: 100%;
+    background-color: var(--active-color);
+    background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+    animation: progress-bar-stripes 1s linear infinite;
+}
+@keyframes progress-bar-stripes {
+    from { background-position: 40px 0; }
+    to { background-position: 0 0; }
+}
+
+/* --- 通知样式 --- */
+#notification-container {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 200;
+}
+.notification {
+    padding: 10px 20px; background-color: rgba(0, 0, 0, 0.8);
+    color: white; border-radius: 20px;
+    animation: fade-in-out 2s ease;
+}
+@keyframes fade-in-out {
+    0%, 100% { opacity: 0; transform: translateY(10px); }
+    10%, 90% { opacity: 1; transform: translateY(0); }
+}

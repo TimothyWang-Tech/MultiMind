@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MultiMind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar">
+            <div class="icon-group top">
+                <div class="icon" data-service="gemini" title="Gemini"><img src="./icons/gemini.svg" alt="Gemini"></div>
+                <div class="icon" data-service="chatgpt" title="ChatGPT"><img src="./icons/chatgpt.svg" alt="ChatGPT"></div>
+                <div class="icon" data-service="manus" title="Manus"><img src="./icons/manus.svg" alt="Manus"></div>
+                <div class="icon" data-service="perplexity" title="Perplexity"><img src="./icons/perplexity.svg" alt="Perplexity"></div>
+                <div class="icon" data-service="grok" title="Grok"><img src="./icons/grok.svg" alt="Grok"></div>
+                <div class="icon" data-service="claude" title="Claude"><img src="./icons/claude.svg" alt="Claude"></div>
+                <div class="icon" data-service="deepseek" title="DeepSeek"><img src="./icons/deepseek.svg" alt="DeepSeek"></div>
+            </div>
+            <div class="icon-group bottom">
+                <div class="icon" id="reload-page" title="重新加载页面">
+                    <img src="./icons/reload.svg" alt="Reload Icon">
+                </div>
+                <div class="icon" id="toggle-clipboard" title="切换剪贴板">
+                    <img src="./icons/clipboard.svg" alt="Reload Icon">
+                </div>
+            </div>
+        </div>
+        
+        <div id="content">
+            <div id="progress-bar-container"><div id="progress-bar"></div></div>
+            </div>
+
+        <div id="right-sidebar" class="hidden">
+            <div class="sidebar-header">临时剪贴板</div>
+            <div id="clipboard-list-container">
+                <ul id="clipboard-list"></ul>
+                <div id="drop-prompt">拖拽文件或文本到这里</div>
+            </div>
+        </div>
+    </div>
+    <div id="notification-container"></div>
+    <script src="./renderer.js"></script>
+</body>
+</html>
